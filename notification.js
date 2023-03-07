@@ -60,7 +60,7 @@ async function send_slack_notification(xss_payload_fire_data) {
                     },
                     {
                         "type": "plain_text",
-                        "text": `${xss_payload_fire_date.browser_timestamp}`
+                        "text": `${xss_payload_fire_data.browser_timestamp}`
                     }
                 ]
             },
