@@ -41,12 +41,139 @@ async function send_slack_notification(xss_payload_fire_data) {
 		"icon_emoji": `:${process.env.SLACK_EMOJI}:`,
 		"blocks": [
 			{
-				"type": "section",
-				"text": {
-					"type": "plain_text",
-					"text": `XSS Payload Fired On ${xss_payload_fire_data.url}`
-				}
-			},
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Xss Alert From Xss-Hunter",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Browser Time:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_date.browser_timestamp}`
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Fired On:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_data.url}`
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*IP Address:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_data.ip_address}`
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Referer:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_data.referer}`
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Origin:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_data.origin}`
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Fired in iFrame:*"
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${xss_payload_fire_data.was_iframe}`
+                    }
+                ]
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*Proof Of Concept Screenshot*"
+                }
+            },
+            {
+                "type": "image",
+                "image_url":`${xss_payload_fire_data.screenshot_url}`,
+                "alt_text": "Failed To Load Pic From Server"
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "actions",
+                "elements": [
+                    {
+                        "type": "button",
+                        "url": `https://${process.env.HOSTNAME}/admin`,
+                        "style": "primary",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "XssHunter Login",
+                            "emoji": true
+                        },
+                        "action_id": "actionId-0"
+                    },
+                    {
+                        "type": "button",
+                        "url": `${process.env.CONSOLE_URL}`,
+                        "style": "danger",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Console Login",
+                            "emoji": true
+                        },
+                        "action_id": "actionId-1"
+                    }
+                ]
+            },
 		]
 	};
 
